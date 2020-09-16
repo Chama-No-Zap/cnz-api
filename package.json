@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/HackathonAmbev-30/cnz-api/issues"
   },
-  "homepage": "https://github.com/HackathonAmbev-30/cnz-api#readme"
+  "homepage": "https://github.com/HackathonAmbev-30/cnz-api#readme",
+  "dependencies": {
+    "joi": "^17.2.1"
+  }
 }
