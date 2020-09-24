@@ -1,11 +1,19 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const connection = require('./src/utils/connection');
+const usersRouter = require('./src/users/usersController');
 
 const app = express();
 
+mongoose.connect('mongodb://localhost/cnz', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+});
+
 app.use(bodyParser.json());
 
-app.use(connection);
+app.use('/users', usersRouter);
 
 app.listen(3000, () => console.log('listen to port 3000'));
