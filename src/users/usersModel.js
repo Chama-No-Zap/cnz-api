@@ -5,4 +5,10 @@ const createUser = async(data) => {
   return user.save();
 }
 
-module.exports = { createUser };
+const updateUserByPhone = async(data) => {
+  const { phone } = data;
+  const user = User.update({ phone }, { $set: data });
+  return user.exec();
+}
+
+module.exports = { createUser, updateUserByPhone };

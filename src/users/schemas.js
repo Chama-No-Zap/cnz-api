@@ -11,14 +11,14 @@ const userSchema = new Schema({
   cpf: {
     type: String,
     minlength: 11,
-    required: true,
     maxlength: 14,
     validate: [cpfValidate, 'Invalid CPF'],
     unique: true,
   },
   phone: {
     type: String,
-    required: true
+    required: true,
+    unique: true,
   },
   address: {
     cep: {

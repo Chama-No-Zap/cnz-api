@@ -12,19 +12,19 @@ const createUser = async (req, res, next) => {
   }
 };
 
-const updateUser = async (req, res, next) => {
-  // try {
-  //   const response = await usersService.createUser(req.body);
-  //   return res.status(201).json(response);
-  // } catch (err) {
-  //   res.status(401).json(err);
-  // }
+const updateUserByPhone = async (req, res, next) => {
+  try {
+    const response = await usersService.updateUserByPhone(req.body);
+    return res.status(201).json(response);
+  } catch (err) {
+    res.status(401).json(err);
+  }
 };
 
 usersRouter
   .route('/')
   .post(createUser)
-  .put(updateUser);
+  .put(updateUserByPhone);
 
 
 module.exports = usersRouter;

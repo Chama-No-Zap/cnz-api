@@ -1,12 +1,7 @@
 const UsersModel = require('./usersModel.js');
+const removeSpecialsCharacters = require('../utils/removeSpecialsCharacters');
 
-const createUser = async(data) => {
-  const { cpf, phone } = data;
-  const regex = new RegExp(/[^\d]+/g);
-  const onlyNumbersCpf = cpf.replace(regex, '');
-  const onlyNumbersPhone = phone.replace(regex,'');
-  return UsersModel.createUser({ ...data, cpf: onlyNumbersCpf, phone: onlyNumbersPhone });
-}
+const createUser = async(data) => UsersModel.createUser(removeSpecialsCharacters(data));
+const updateUserByPhone = async(data) => UsersModel.updateUserByPhone(removeSpecialsCharacters(data));
 
-
-module.exports = { createUser };
+module.exports = { createUser, updateUserByPhone };
