@@ -1,14 +1,30 @@
 const { Router } = require('express');
-const rescue = require('express-rescue');
 const usersService = require('./usersService');
 
 const usersRouter = Router();
 
-const createUser = rescue(async (req, res, next) => {
-  const user = await usersService.createUser(req.body);
-  return res.status(201).send({ user });
-});
+const createUser = async (req, res, next) => {
+  try {
+    const response = await usersService.createUser(req.body);
+    return res.status(201).json(response);
+  } catch (err) {
+    res.status(401).json(err);
+  }
+};
 
-usersRouter.post('/', createUser);
+const updateUser = async (req, res, next) => {
+  // try {
+  //   const response = await usersService.createUser(req.body);
+  //   return res.status(201).json(response);
+  // } catch (err) {
+  //   res.status(401).json(err);
+  // }
+};
+
+usersRouter
+  .route('/')
+  .post(createUser)
+  .put(updateUser);
+
 
 module.exports = usersRouter;
