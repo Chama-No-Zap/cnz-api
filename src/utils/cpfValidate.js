@@ -1,5 +1,4 @@
 const isValidCPF = (CPF) => {
-
   if (
     !CPF ||
     CPF.length != 11 ||

@@ -1,7 +1,8 @@
 const UsersModel = require('./usersModel.js');
-const removeSpecialsCharacters = require('../utils/removeSpecialsCharacters');
 
-const createUser = async(data) => UsersModel.createUser(removeSpecialsCharacters(data));
-const updateUserByPhone = async(data) => UsersModel.updateUserByPhone(removeSpecialsCharacters(data));
+const createUser = async (data) => UsersModel.createUser(data);
+const updateUserByPhone = async (data) => UsersModel.updateUserByPhone(data);
 
-module.exports = { createUser, updateUserByPhone };
+const desativeUserByPhone = async (phone) => UsersModel.desativeUserByPhone(phone);
+
+module.exports = { createUser, updateUserByPhone, desativeUserByPhone };

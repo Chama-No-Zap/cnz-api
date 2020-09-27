@@ -7,8 +7,13 @@ const createUser = async(data) => {
 
 const updateUserByPhone = async(data) => {
   const { phone } = data;
-  const user = User.update({ phone }, { $set: data });
+  const user = User.updateOne({ phone }, { $set: data });
   return user.exec();
 }
 
-module.exports = { createUser, updateUserByPhone };
+const desativeUserByPhone = async(phone) => {
+  const user = new User.updateOne({ phone }, { $set: { desatived: true } });
+  return user.exec();
+}
+
+module.exports = { createUser, updateUserByPhone, desativeUserByPhone };

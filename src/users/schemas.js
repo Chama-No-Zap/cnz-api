@@ -33,6 +33,10 @@ const userSchema = new Schema({
   },
   purchaseHistory: {
     type: Array,
+  },
+  desatived: {
+    type: Boolean,
+    default: false
   }
 });
 
