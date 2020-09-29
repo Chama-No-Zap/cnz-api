@@ -5,7 +5,6 @@ const removeSpecialsCharacters = require('../middlewares/removeSpecialsCharacter
 const usersRouter = Router();
 
 const createUser = async (req, res, _next) => {
-  console.log(req.body);
   try {
     const response = await usersService.createUser(req.body);
     return res.status(201).json(response);
@@ -24,21 +23,25 @@ const updateUserByPhone = async (req, res, _next) => {
 };
 
 ///Consertar função
-// const desativeUserByPhone = async (req, res, _next) => {
-//   const { phone } = req.body;
-//   console.log(phone);
-//   try {
-//     const response = await usersService.desativeUserByPhone(phone);
-//     return res.status(200).json(response);
-//   } catch (err) {
-//     res.status(400).json(err);
-//   }
-// };
+const desativeUserByPhone = async (req, res, _next) => {
+  const { phone } = req.body;
+  console.log(phone);
+  try {
+    const response = await usersService.desativeUserByPhone(phone);
+    return res.status(200).json(response);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
 
 usersRouter
   .route('/')
   .post(removeSpecialsCharacters, createUser)
-  .put(removeSpecialsCharacters, updateUserByPhone);
+  .put( updateUserByPhone);
+
+  usersRouter
+  .route('/desactive')
+  .put(desativeUserByPhone);
 
 // usersRouter
 //   .put('/deactivate', desativeUserByPhone);
