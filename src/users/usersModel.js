@@ -8,12 +8,14 @@ const createUser = async (data) => {
 const updateUserByPhone = async (data) => {
   const { phone } = data;
   const updateThat = Object.entries(data);
-  let user;
-  updateThat.map(([key, value]) => {
-    user = User.updateOne({ phone }, { $set: { [key]: value } });
-    return [user.exec()]
-  });
-  return user.exec();
+  try {
+    updateThat.forEach(([key, value]) => {
+      User.updateOne({ phone }, { $set: { [key]: value } });
+    });
+    return { modified: 1, items: updateThat.length }
+  } catch (err) {
+    console.error(err);
+  }
 
 }
 

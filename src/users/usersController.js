@@ -25,7 +25,6 @@ const updateUserByPhone = async (req, res, _next) => {
 ///Consertar função
 const desativeUserByPhone = async (req, res, _next) => {
   const { phone } = req.body;
-  console.log(phone);
   try {
     const response = await usersService.desativeUserByPhone(phone);
     return res.status(200).json(response);
@@ -37,7 +36,7 @@ const desativeUserByPhone = async (req, res, _next) => {
 usersRouter
   .route('/')
   .post(removeSpecialsCharacters, createUser)
-  .put( updateUserByPhone);
+  .put(updateUserByPhone);
 
   usersRouter
   .route('/desactive')
