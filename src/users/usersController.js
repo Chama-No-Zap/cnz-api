@@ -22,7 +22,6 @@ const updateUserByPhone = async (req, res, _next) => {
   }
 };
 
-///Consertar função
 const desativeUserByPhone = async (req, res, _next) => {
   const { phone } = req.body;
   try {
