@@ -23,11 +23,11 @@ const userSchema = new Schema({
   address: {
     cep: {
       type: String,
-      required: true
+      required: true,
     },
     number: {
       type: String,
-      required: true
+      required: true,
     },
     complement: String,
   },
@@ -36,8 +36,8 @@ const userSchema = new Schema({
   },
   desatived: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
-module.exports = mongoose.model("Users", userSchema);
+module.exports = mongoose.model('Users', userSchema);
