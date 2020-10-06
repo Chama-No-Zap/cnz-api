@@ -8,8 +8,7 @@ checks:
     config:
       threshold: 6
   complex-logic:
-    config:
-      threshold: 4
+    enabled: false
   file-lines:
     config:
       threshold: 250
@@ -35,7 +34,7 @@ checks:
       threshold: # language-specific defaults. an override will affect all languages.
 plugins:
   editorconfig:
-    enabled: true
+    enabled: false
   eslint:
     enabled: true
   fixme:
