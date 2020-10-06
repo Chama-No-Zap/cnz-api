@@ -33,18 +33,11 @@ const desativeUserByPhone = async (req, res, _next) => {
   }
 };
 
-usersRouter
-  .route('/')
-  .post(removeSpecialsCharacters, createUser)
-  .put(updateUserByPhone);
+usersRouter.route('/').post(removeSpecialsCharacters, createUser).put(updateUserByPhone);
 
-  usersRouter
-  .route('/desactive')
-  .put(desativeUserByPhone);
+usersRouter.route('/desactive').put(desativeUserByPhone);
 
 // usersRouter
 //   .put('/deactivate', desativeUserByPhone);
-
-
 
 module.exports = usersRouter;

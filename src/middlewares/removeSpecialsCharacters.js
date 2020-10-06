@@ -8,10 +8,9 @@ const removeSpecialsCharacters = (req, _res, next) => {
     ...req.body,
     cpf: onlyNumbersCpf,
     phone: onlyNumbersPhone,
-    address: { ...address, cep: onlyNumbersCep }
+    address: { ...address, cep: onlyNumbersCep },
   };
   next();
-}
+};
 
 module.exports = removeSpecialsCharacters;
-
