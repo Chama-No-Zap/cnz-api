@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const usersRouter = require('./src/users/usersController');
+const errorHandler = require('./src/middlewares/errorHandler');
 
 const app = express();
 
@@ -16,6 +17,6 @@ app.use(bodyParser.json());
 
 app.use('/users', usersRouter);
 
-// app.use();
+app.use(errorHandler);
 
 app.listen(3000, () => console.log('listen to port 3000'));

@@ -5,33 +5,22 @@ const removeSpecialsCharacters = require('../middlewares/removeSpecialsCharacter
 
 const usersRouter = Router();
 
-const createUser = async (req, res, _next) => {
-  try {
-    const response = await usersService.createUser(req.body);
-    return res.status(201).json(response);
-  } catch (err) {
-    res.status(400).json(err);
-  }
-};
+const createUser = rescue(async (req, res, _next) => {
+  const response = await usersService.createUser(req.body);
+  if (response.err) return next({ message: response.message, code: 401 });
+  return res.status(201).json(response);
+});
 
-const updateUserByPhone = async (req, res, _next) => {
-  try {
-    const response = await usersService.updateUserByPhone(req.body);
-    return res.status(200).json(response);
-  } catch (err) {
-    res.status(400).json(err);
-  }
-};
+const updateUserByPhone = rescue(async (req, res, _next) => {
+  const response = await usersService.updateUserByPhone(req.body);
+  return res.status(200).json(response);
+});
 
-const desativeUserByPhone = async (req, res, _next) => {
+const desativeUserByPhone = rescue(async (req, res, _next) => {
   const { phone } = req.body;
-  try {
-    const response = await usersService.desativeUserByPhone(phone);
-    return res.status(200).json(response);
-  } catch (err) {
-    res.status(400).json(err);
-  }
-};
+  const response = await usersService.desativeUserByPhone(phone);
+  return res.status(200).json(response);
+});
 
 const getUserByPhone = rescue(async (req, res, next) => {
   const { phone } = req.body;
