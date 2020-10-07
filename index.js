@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const usersRouter = require('./src/users/usersController');
+// const productsRouter = require('./src/products/productsController');
 const errorHandler = require('./src/middlewares/errorHandler');
 
 const app = express();
@@ -16,6 +17,7 @@ mongoose.connect('mongodb://localhost/cnz', {
 app.use(bodyParser.json());
 
 app.use('/users', usersRouter);
+// app.use('/products', productsRouter);
 
 app.use(errorHandler);
 
