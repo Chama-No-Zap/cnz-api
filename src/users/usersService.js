@@ -23,9 +23,7 @@ const updateUserByPhone = async (data) => {
   if (user.err) return user;
   const updateThat = Object.entries(data);
   const updatedData = await Promise.all(updateThat.map(async ([key, value]) =>
-     User.findOneAndUpdate({ phone }, { $set: { [key]: value } })
-  ));
-
+    User.findOneAndUpdate({ phone }, { $set: { [key]: value } })));
   return { modified: updatedData.length, fields: data };
 };
 
