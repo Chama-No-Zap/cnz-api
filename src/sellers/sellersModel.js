@@ -34,13 +34,26 @@ const sellersSchema = new Schema({
   ordersHistory: {
     type: Array,
   },
-  products: {
-    type: Array,
-  },
-  allowedCategories: {
-    type: Array,
-    required: true,
-  },
+  products: [{
+    name: {
+      type: String,
+      required: true,
+    },
+    informations: {
+      brand: { type: String, default: 'onwer' },
+      group: String,
+      subgroup: String,
+    },
+    measurement: [{
+      measure: String,
+      quantity: String,
+      price: String,
+      stock: {
+        type: Boolean,
+        default: true,
+      }
+    }],
+  }],
   desatived: {
     type: Boolean,
     default: false,

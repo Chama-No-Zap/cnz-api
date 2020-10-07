@@ -32,7 +32,18 @@ const desativeSellerByPhone = async (req, res, _next) => {
   }
 };
 
+const addProductByPhone = async (req, res, _next) => {
+  const { phone, products } = req.body;
+  try {
+    const response = await sellersService.addProductByPhone(phone, products);
+    return res.status(201).json(response);
+  } catch (err) {
+    res.status(400).json({ message: `seller with phone number \'${phone}\' was not found` });
+  }
+};
+
 sellersRouter.route('/').post(removeSpecialsCharacters, createSeller).put(updateSellerByPhone);
+sellersRouter.route('/products').post(addProductByPhone);
 
 sellersRouter.route('/desactive').put(desativeSellerByPhone);
 
