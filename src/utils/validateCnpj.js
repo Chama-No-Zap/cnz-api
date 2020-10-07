@@ -1,17 +1,8 @@
 const validateCnpj = (value) => {
   if (!value) return false;
 
-  // Aceita receber o valor como string, número ou array com todos os dígitos
-  const validTypes = typeof value === 'string' || Number.isInteger(value) || Array.isArray(value);
-
-  // Elimina valor em formato inválido
-  if (!validTypes) return false;
-
   // Guarda um array com todos os dígitos do valor
   const numbers = value.toString().match(/\d/g).map(Number);
-
-  // Valida a quantidade de dígitos
-  if (numbers.length !== 14) return false;
 
   // Elimina inválidos com todos os dígitos iguais
   const items = [...new Set(numbers)];
