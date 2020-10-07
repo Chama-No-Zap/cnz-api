@@ -36,7 +36,6 @@ const desativeUserByPhone = async (req, res, _next) => {
 const getUserByPhone = rescue(async (req, res, next) => {
   const { phone } = req.body;
     const response = await usersService.getUserByPhone(phone);
-    console.log({ message: response.message, code: 404 });
     if (response.err) return next({ message: response.message, code: 404 });
     return res.status(200).json(response);
 });
