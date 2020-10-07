@@ -7,20 +7,31 @@ const createUser = async (data) => {
 
 const updateUserByPhone = async (data) => {
   const { phone } = data;
+  const user = await getUserByPhone(phone);
+  if (user.err) return user;
   const updateThat = Object.entries(data);
-  try {
-    updateThat.forEach(([key, value]) => {
-      User.updateOne({ phone }, { $set: { [key]: value } });
-    });
-    return { modified: 1, items: updateThat.length };
-  } catch (err) {
-    console.error(err);
-  }
+  const updatedData = await Promise.all(updateThat.map(async ([key, value]) => {
+    return User.findOneAndUpdate({ phone }, { $set: { [key]: value } });
+  }));
+
+  return { modified: updatedData.length, fields: data };
 };
 
 const desativeUserByPhone = async (phone) => {
-  const user = User.updateOne({ phone }, { $set: { desatived: true } });
+  const user = await User.findOneAndUpdate({ phone }, { $set: { desatived: true } });
+  if (!user) return { err: true, message: 'User not found' };
   return user.exec();
 };
 
-module.exports = { createUser, updateUserByPhone, desativeUserByPhone };
+const getUserByPhone = async (phone) => {
+  const user = await User.findOne({ phone });
+  if (!user) return { err: true, message: 'User not found' };
+  return user;
+};
+
+module.exports = {
+  createUser,
+  updateUserByPhone,
+  desativeUserByPhone,
+  getUserByPhone,
+};
