@@ -37,6 +37,10 @@ const sellersSchema = new Schema({
   products: {
     type: Array,
   },
+  allowedCategories: {
+    type: Array,
+    required: true,
+  },
   desatived: {
     type: Boolean,
     default: false,
