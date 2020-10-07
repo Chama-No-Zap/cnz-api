@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const validateCpf = require('../utils/validateCpf');
+const validateCnpj = require('../utils/validateCnpj');
 
 const Schema = mongoose.Schema;
 
@@ -8,11 +8,11 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  cpf: {
+  cnpj: {
     type: String,
     minlength: 11,
     maxlength: 14,
-    validate: [validateCpf, 'Invalid CPF'],
+    validate: [validateCnpj, 'Invalid CPF'],
     unique: true,
   },
   phone: {
@@ -31,7 +31,10 @@ const userSchema = new Schema({
     },
     complement: String,
   },
-  purchaseHistory: {
+  ordersHistory: {
+    type: Array,
+  },
+  products: {
     type: Array,
   },
   desatived: {
