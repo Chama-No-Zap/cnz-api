@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const rescue = require('express-rescue');
 const usersService = require('./usersService');
 const removeSpecialsCharacters = require('../middlewares/removeSpecialsCharacters');
 
@@ -32,7 +33,15 @@ const desativeUserByPhone = async (req, res, _next) => {
   }
 };
 
-usersRouter.route('/').post(removeSpecialsCharacters, createUser).put(updateUserByPhone);
+const getUserByPhone = rescue(async (req, res, next) => {
+  const { phone } = req.body;
+    const response = await usersService.getUserByPhone(phone);
+    console.log({ message: response.message, code: 404 });
+    if (response.err) return next({ message: response.message, code: 404 });
+    return res.status(200).json(response);
+});
+
+usersRouter.route('/').get(getUserByPhone).post(removeSpecialsCharacters, createUser).put(updateUserByPhone);
 
 usersRouter.route('/desactive').put(desativeUserByPhone);
 
