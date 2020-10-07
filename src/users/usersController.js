@@ -41,22 +41,22 @@ const desativeUserByPhone = async (req, res, _next) => {
   }
 };
 
+const getUserByPhone = (async (req, res, _next) => {
+  const { phone } = req.body;
+  try {
+    const response = await usersService.getUserByPhone(phone);
+    return res.status(200).json(response);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
 // const getUserByPhone = rescue(async (req, res, next) => {
 //   const { phone } = req.body;
 //   const response = await usersService.getUserByPhone(phone);
 //   if (response.err) return next({ message: response.message, code: 404 });
 //   return res.status(200).json(response);
 // });
-
-const getUserByPhone = (async (req, res, next) => {
-  const { phone } = req.body;
-  try {
-    const response = await usersService.getUserByPhone(phone);
-    return res.status(200).json(response);;
-  } catch (err) {
-    res.status(400).json(err);
-  }
-});
 
 usersRouter
   .route('/')
