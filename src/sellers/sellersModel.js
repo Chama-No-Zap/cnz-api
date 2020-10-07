@@ -3,16 +3,16 @@ const validateCnpj = require('../utils/validateCnpj');
 
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
+const sellersSchema = new Schema({
   name: {
     type: String,
     required: true,
   },
   cnpj: {
     type: String,
-    minlength: 11,
-    maxlength: 14,
-    validate: [validateCnpj, 'Invalid CPF'],
+    minlength: 14,
+    maxlength: 18,
+    validate: [validateCnpj, 'Invalid CNPJ'],
     unique: true,
   },
   phone: {
@@ -43,4 +43,4 @@ const userSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model('Users', userSchema);
+module.exports = mongoose.model('Sellers', sellersSchema);

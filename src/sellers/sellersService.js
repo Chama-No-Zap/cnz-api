@@ -1,4 +1,4 @@
-const Seller = require('./sellerModel');
+const Seller = require('./sellersModel');
 
 const createSeller = async (data) => {
   const seller = new Seller(data);
