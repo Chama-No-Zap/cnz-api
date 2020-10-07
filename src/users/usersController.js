@@ -1,14 +1,42 @@
 const { Router } = require('express');
-const rescue = require('express-rescue');
 const usersService = require('./usersService');
+const removeSpecialsCharacters = require('../middlewares/removeSpecialsCharacters');
 
 const usersRouter = Router();
 
-const createUser = rescue(async (req, res, next) => {
-  const user = await usersService.createUser(req.body);
-  return res.status(201).send({ user });
-});
+const createUser = async (req, res, _next) => {
+  try {
+    const response = await usersService.createUser(req.body);
+    return res.status(201).json(response);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
 
-usersRouter.post('/', createUser);
+const updateUserByPhone = async (req, res, _next) => {
+  try {
+    const response = await usersService.updateUserByPhone(req.body);
+    return res.status(200).json(response);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
+
+const desativeUserByPhone = async (req, res, _next) => {
+  const { phone } = req.body;
+  try {
+    const response = await usersService.desativeUserByPhone(phone);
+    return res.status(200).json(response);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
+
+usersRouter.route('/').post(removeSpecialsCharacters, createUser).put(updateUserByPhone);
+
+usersRouter.route('/desactive').put(desativeUserByPhone);
+
+// usersRouter
+//   .put('/deactivate', desativeUserByPhone);
 
 module.exports = usersRouter;
