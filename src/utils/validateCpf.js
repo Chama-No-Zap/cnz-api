@@ -1,17 +1,8 @@
 const validateCpf = (value) => {
   if (!value) return false;
 
-  // Aceita receber o valor como string, número ou array com todos os dígitos
-  const validTypes = typeof value === 'string' || Number.isInteger(value) || Array.isArray(value);
-
-  // Elimina valores com formato inválido
-  if (!validTypes) return false;
-
   // Guarda todos os dígitos em um array
   const numbers = value.toString().match(/\d/g).map(Number);
-
-  // Valida quantidade de dígitos
-  if (numbers.length !== 11) return false;
 
   // Elimina valores inválidos com todos os dígitos repetidos
   const items = [...new Set(numbers)];
