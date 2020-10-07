@@ -50,15 +50,25 @@ const desativeUserByPhone = async (req, res, _next) => {
 
 const getUserByPhone = (async (req, res, next) => {
   const { phone } = req.body;
+<<<<<<< HEAD
   try {
     const response = await usersService.getUserByPhone(phone);
     return res.status(200).json(response);;
   } catch (err) {
     res.status(400).json(err);
   }
+=======
+  const response = await usersService.getUserByPhone(phone);
+  if (response.err) return next({ message: response.message, code: 404 });
+  return res.status(200).json(response);
+>>>>>>> fabf4511c2f0296a09aa3f218fac3099be485458
 });
 
-usersRouter.route('/').get(getUserByPhone).post(removeSpecialsCharacters, createUser).put(updateUserByPhone);
+usersRouter
+  .route('/')
+  .get(getUserByPhone)
+  .post(removeSpecialsCharacters, createUser)
+  .put(updateUserByPhone);
 
 usersRouter.route('/desactive').put(desativeUserByPhone);
 
