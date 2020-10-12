@@ -8,6 +8,7 @@
     "quotes": [2, "single"],
     "implicit-arrow-linebreak": "off",
     "consistent-return": "off",
+    "no-plusplus": "off",
     "no-unused-vars": [
       "error",
       {

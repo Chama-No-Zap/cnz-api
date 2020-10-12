@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const cpfValidate = require('../utils/cpfValidate');
+const validateCpf = require('../utils/validateCpf');
 
 const Schema = mongoose.Schema;
 
@@ -12,7 +12,7 @@ const userSchema = new Schema({
     type: String,
     minlength: 11,
     maxlength: 14,
-    validate: [cpfValidate, 'Invalid CPF'],
+    validate: [validateCpf, 'Invalid CPF'],
     unique: true,
   },
   phone: {
