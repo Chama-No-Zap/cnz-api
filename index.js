@@ -25,12 +25,4 @@ app.use('/sellers', sellersRouter);
 
 app.use('/orders', ordersRouter);
 
-app.use((err, _req, res, _next) => {
-  const { message, status } = err;
-  if (status < 500) {
-    return res.status(status).json({ message });
-  }
-  res.status(500).send('Something broke!');
-})
-
 app.listen(3000, () => console.log('listen to port 3000'));

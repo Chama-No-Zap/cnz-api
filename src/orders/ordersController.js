@@ -12,30 +12,30 @@ const createOrder = async (req, res, _next) => {
   }
 };
 
-const getOrders = async (req, res, next) => {
+const getOrders = async (req, res, _next) => {
   try {
     const response = await orderService.getOrders(req.body);
-    if(response.err) return next(response);
+    if(response.err) return res.status(response.status).json({ response });
     return res.status(200).json(response);
   } catch (err) {
     res.status(400).json(err);
   }
 };
 
-const updateOrder = async (req, res, next) => {
+const updateOrder = async (req, res, _next) => {
   try {
     const response = await orderService.updateOrder(req.body);
-    if(response.err) return next(response);
+    if(response.err) return res.status(response.status).json({ response });
     return res.status(201).json(response);
   } catch (err) {
     res.status(400).json({ message: `Wrong data format` });
   }
 };
 
-const cancelOrder = async (req, res, next) => {
+const cancelOrder = async (req, res, _next) => {
   try {
     const response = await orderService.cancelOrder(req.body);
-    if(response.err) return next(response);
+    if(response.err) return res.status(response.status).json({ response });
     return res.status(200).json(response);
   } catch (err) {
     res.status(400).json(err);
