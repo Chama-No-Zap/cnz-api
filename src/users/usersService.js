@@ -1,4 +1,7 @@
 const User = require('./usersModel');
+const {
+  USER_NOT_FOUND,
+} = require('../errors');
 
 const createUserFunctions = {
   default: ({ phone, key, ...content }) => {
@@ -6,29 +9,43 @@ const createUserFunctions = {
     .findOneAndUpdate({ phone },
       { $set: { [key]: content[key] } }, { runValidators: true }
     );
-  // lidar com erro de user não encontrado
-  return user;
+    return user.exec();
   },
-  phone: ({ phone, name }) =>  new User({ phone, name })
+  phone: ({ phone, name }) => {
+    const user = new User({ phone, name });
+    return user.save()
+  }
   ,
-  cep: ({ phone, cep }) => {
+  address: ({ phone, key, ...content }) => {
     const user = User
       .findOneAndUpdate({ phone },
-        { $set: { address: { cep } } }, { runValidators: true }
+        { $set: { [`address.${key}`]: content[key] } },
+        { runValidators: true }
       );
-    // lidar com erro de user não encontrado
-    return user;
+    return user.exec();
   },
 };
 
 const createUser = async (data) => {
   const { title, content } = data;
+  let user;
+  const addressElements = ['cep', 'complement', 'number'];
   if (title === 'phone') {
-    const newUser = createUserFunctions[title](content);
-    return newUser.save();
+    user = await createUserFunctions[title](content);
+    return user;
   }
-  const user = createUserFunctions['default']({...content, key: title });
-  return user.exec();
+
+  if (addressElements.some((elem) => elem === title)) {
+    // utilizar função de atualizar endereço caso a chave seja
+    // cep, complemento ou número
+    user = await createUserFunctions['address']({...content, key: title });
+    return user;
+  }
+
+  user = await createUserFunctions['default']({...content, key: title });
+  if (!user) throw USER_NOT_FOUND;
+
+  return user;
 };
 
 // const desativeUserByPhone = async (phone) => {
