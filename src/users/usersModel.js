@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   name: {
     type: String,
-    required: true,
+    default: '',
   },
   cpf: {
     type: String,
@@ -17,22 +17,26 @@ const userSchema = new Schema({
   },
   phone: {
     type: String,
-    required: true,
     unique: true,
+    default: '',
   },
   address: {
     cep: {
       type: String,
-      required: true,
+      default: ''
     },
     number: {
       type: String,
-      required: true,
+      default: '',
     },
-    complement: String,
+    complement: {
+      type: String,
+      default: '',
+    }
   },
   purchaseHistory: {
     type: Array,
+    default: [],
   },
   desatived: {
     type: Boolean,
