@@ -34,17 +34,65 @@ const updateSellerByPhone = async (data) => {
   return { modified: updatedData.length, fields: data };
 };
 
-const addProductByPhone = async (phone, products) => {
-  const seller = await getSellerByPhone(phone);
-  if (seller.err) throw new Error(seller.message);
-  const { products: oldProductList } = await Seller.findOneAndUpdate({ phone }, { $push: { products } });
-  return { actualProducts: [...oldProductList, ...products]};
-}
-
-
 const desativeSellerByPhone = async (phone) => {
   const seller = Seller.updateOne({ phone }, { $set: { desatived: true } });
   return seller.exec();
 };
 
-module.exports = { createSeller, updateSellerByPhone, desativeSellerByPhone, addProductByPhone };
+const addProductByPhone = async (phone, products) => {
+  const seller = await getSellerByPhone(phone);
+  if (seller.err) throw new Error(seller.message);
+  const { products: oldProductList } = await Seller.findOneAndUpdate({ phone }, { $push: { products } });
+  return { actualProducts: [...oldProductList, ...products]};
+};
+
+// Buscar produtos -- Função alternativa
+// const getProductByName = async (phone, productName) => {
+//   const { products } = await getSellerByPhone(phone);
+//   const product = products.find(({ name }) => name === productName);
+//   if (!product ) return { err: true, message: 'Product not found' };
+//   return product[0];
+// };
+
+const getProductByName = async (phone, name) => {
+  const product = await Seller.aggregate([
+    { $match: { phone } },
+    { $project: {
+      product: { $filter: {
+        input: '$products',
+        as: 'product',
+        cond: { $eq: ['$$product.name', name ]}
+      }},
+      _id: 0
+    }}
+  ]);
+
+  // if () throw new Error('Product not found');
+  return product[0];
+};
+
+const getAllProductsByPhone = async (phone) => {
+  const products = await Seller.find({ phone }, { products: 1, _id: 0 });
+  return products[0];
+};
+
+const desactiveProductByName = async (_phone, _productName) => {
+  return null;
+};
+
+// const removeProductByName = async (phone, name) => {
+//   const { products } = await Seller.findOneAndUpdate({ phone }, { $pull: { "products.name": name } });
+//   return { removedProduct: name };
+// }
+
+
+
+module.exports = {
+  createSeller,
+  updateSellerByPhone,
+  desativeSellerByPhone,
+  addProductByPhone,
+  getProductByName,
+  desactiveProductByName,
+  getAllProductsByPhone,
+};
