@@ -1,26 +1,34 @@
-// const User = require('./usersModel');
+// const Product = require('./productsModel');
 
-// const createUser = async (data) => {
-//   const user = new User(data);
-//   return user.save();
+// const createProduct = async (data) => {
+//   const product = new Product(data);
+//   return product.save();
 // };
 
-// const updateUserByPhone = async (data) => {
-//   const { phone } = data;
-//   const updateThat = Object.entries(data);
-//   try {
-//     updateThat.forEach(([key, value]) => {
-//       User.updateOne({ phone }, { $set: { [key]: value } });
-//     });
-//     return { modified: 1, items: updateThat.length };
-//   } catch (err) {
-//     console.error(err);
-//   }
+// // const updateProductById = async (id) => {
+// //   const user = await getUserByPhone(phone);
+// //   if (user.err) return user;
+// //   const updateThat = Object.entries(data);
+// //   const updatedData = await Promise.all(updateThat.map(async ([key, value]) => {
+// //     return User.findOneAndUpdate({ phone }, { $set: { [key]: value } });
+// //   }));
+
+// //   return { modified: updatedData.length, fields: data };
+// // };
+
+// // const desativeUserByPhone = async (phone) => {
+// //   const user = await User.findOneAndUpdate({ phone }, { $set: { desatived: true } });
+// //   if (!user) return { err: true, message: 'User not found' };
+// //   return user.exec();
+// // };
+
+// const getProductById = async (id) => {
+//   const product = await Product.findOne({ id });
+//   if (!product) return { err: true, message: 'Product not found' };
+//   return product;
 // };
 
-// const desativeUserByPhone = async (phone) => {
-//   const user = User.updateOne({ phone }, { $set: { desatived: true } });
-//   return user.exec();
+// module.exports = {
+//   createProduct,
+//   getProductById,
 // };
-
-// module.exports = { createUser, updateUserByPhone, desativeUserByPhone };

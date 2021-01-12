@@ -1,34 +1,58 @@
 const User = require('./usersModel');
+const {
+  USER_NOT_FOUND,
+} = require('../errors');
+
+const createUserFunctions = {
+  default: async ({ phone, key, ...content }) => {
+    const user = await User
+    .findOneAndUpdate({ phone },
+      { $set: { [key]: content[key] } }, { runValidators: true }
+    );
+    return user;
+  },
+  phone: ({ phone = null, name }) => {
+    const user = new User({ phone, name });
+    return user.save();
+  }
+  ,
+  address: async ({ phone, key, ...content }) => {
+    const user = await User
+      .findOneAndUpdate({ phone },
+        { $set: { [`address.${key}`]: content[key] } },
+        { runValidators: true }
+      );
+    return user;
+  },
+};
 
 const createUser = async (data) => {
-  const user = new User(data);
-  return user.save();
-};
+  const { title, content } = data;
+  let user;
+  const addressElements = ['cep', 'complement', 'number'];
+  if (title === 'phone') {
+    user = await createUserFunctions[title](content);
+  }
 
-const updateUserByPhone = async (data) => {
-  const { phone } = data;
-  const updateThat = Object.entries(data);
-  Promise.all(updateThat.forEach(async ([key, value]) => {
-    await User.updateOne({ phone }, { $set: { [key]: value } });
-  }));
-
-  return { modified: 1, items: updateThat.length };
-};
-
-const desativeUserByPhone = async (phone) => {
-  const user = await User.updateOne({ phone }, { $set: { desatived: true } });
-  return user.exec();
-};
-
-const getUserByPhone = async (phone) => {
-  const user = await User.findOne({ phone });
-  if (!user) return { err: true, message: 'User not found' };
+  else if (addressElements.some((elem) => elem === title)) {
+    // utilizar função de atualizar endereço caso a chave seja
+    // cep, complemento ou número
+    user = await createUserFunctions['address']({...content, key: title });
+  } else {
+    user = await createUserFunctions['default']({...content, key: title });
+  }
+  if (!user) throw USER_NOT_FOUND;
   return user;
 };
 
+// const getUserByPhone = async (phone) => {
+//   const user = await User.findOne({ phone });
+//   if (!user) return { err: true, message: 'User not found' };
+//   return user;
+// };
+
+
 module.exports = {
   createUser,
-  updateUserByPhone,
-  desativeUserByPhone,
-  getUserByPhone,
+  // getUserByPhone,
 };

@@ -1,38 +1,45 @@
 const mongoose = require('mongoose');
-const cpfValidate = require('../utils/cpfValidate');
+const validateCpf = require('../utils/validateCpf');
 
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   name: {
     type: String,
-    required: true,
+    default: '',
   },
   cpf: {
     type: String,
+    allowNull: true,
     minlength: 11,
     maxlength: 14,
-    validate: [cpfValidate, 'Invalid CPF'],
-    unique: true,
+    validate: [validateCpf, 'Invalid CPF'],
+    default: null,
   },
   phone: {
     type: String,
-    required: true,
+    minlength: 11,
+    maxlength: 11,
     unique: true,
+    required: [true, 'Phone is required'],
   },
   address: {
     cep: {
       type: String,
-      required: true,
+      default: ''
     },
     number: {
       type: String,
-      required: true,
+      default: '',
     },
-    complement: String,
+    complement: {
+      type: String,
+      default: '',
+    }
   },
   purchaseHistory: {
     type: Array,
+    default: [],
   },
   desatived: {
     type: Boolean,
