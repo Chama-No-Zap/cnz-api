@@ -65,10 +65,9 @@ Ao não reconhecer o número de telefone, a função lança um erro (USER_NOT_FO
 
 ---- createUser()
 Para criação de um usuário, é necessário fazer um POST para a rota '/'.
-A API retornará seus dados já presentes no banco, com excessão do atual.
+A API retornará seus dados já presentes no banco, com excessão do atual dado inserido.
 
-Status code 201
-JSON
+<p>Status code 201</p>
 ```
 {
     "address": {
@@ -87,16 +86,15 @@ JSON
 
 Se o usuário ainda não existe no banco, será necessário criá-lo a partir do primeiro contato com o número de telefone. A partir deste ponto pode-se adicionar o restante das informações.
 
--- ERROS
-Status code 11000
+## ERROS
+<p>Status code 11000</p>
 Se o usuário já existe no banco, ao tentar criá-lo será estourado o erro 11000 do mongoose.
 
 
 Se o item a ser inserido não passar nas validações de tipo/tamanho etc,
-você receberá um json no seguinte formato, com todos os erros de validação encontrados:
+a resposta será um json no seguinte formato, com todos os erros de validação encontrados:
 
-Status code 400
-JSON
+<p>Status 400 - Bad Request</p>
 ```
 {
     "errors": {
