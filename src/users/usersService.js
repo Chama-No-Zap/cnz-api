@@ -4,25 +4,25 @@ const {
 } = require('../errors');
 
 const createUserFunctions = {
-  default: ({ phone, key, ...content }) => {
-    const user = User
+  default: async ({ phone, key, ...content }) => {
+    const user = await User
     .findOneAndUpdate({ phone },
       { $set: { [key]: content[key] } }, { runValidators: true }
     );
-    return user.exec();
+    return user;
   },
-  phone: ({ phone, name }) => {
+  phone: ({ phone = null, name }) => {
     const user = new User({ phone, name });
-    return user.save()
+    return user.save();
   }
   ,
-  address: ({ phone, key, ...content }) => {
-    const user = User
+  address: async ({ phone, key, ...content }) => {
+    const user = await User
       .findOneAndUpdate({ phone },
         { $set: { [`address.${key}`]: content[key] } },
         { runValidators: true }
       );
-    return user.exec();
+    return user;
   },
 };
 
@@ -42,35 +42,17 @@ const createUser = async (data) => {
     user = await createUserFunctions['default']({...content, key: title });
   }
   if (!user) throw USER_NOT_FOUND;
-
   return user;
 };
 
-// const desativeUserByPhone = async (phone) => {
-//   const user = await User.findOneAndUpdate({ phone }, { $set: { desatived: true } });
+// const getUserByPhone = async (phone) => {
+//   const user = await User.findOne({ phone });
 //   if (!user) return { err: true, message: 'User not found' };
-//   return user.exec();
+//   return user;
 // };
 
-const getUserByPhone = async (phone) => {
-  const user = await User.findOne({ phone });
-  if (!user) return { err: true, message: 'User not found' };
-  return user;
-};
-
-// const updateUserByPhone = async (data) => {
-//   const { phone } = data;
-//   const user = await getUserByPhone(phone);
-//   if (user.err) return user;
-//   const updateThat = Object.entries(data);
-//   const updatedData = await Promise.all(updateThat.map(async ([key, value]) =>
-//     User.findOneAndUpdate({ phone }, { $set: { [key]: value } })));
-//   return { modified: updatedData.length, fields: data };
-// };
 
 module.exports = {
   createUser,
-  getUserByPhone,
-  // updateUserByPhone,
-  // desativeUserByPhone,
+  // getUserByPhone,
 };

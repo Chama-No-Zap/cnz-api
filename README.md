@@ -115,7 +115,8 @@ JSON
             "value": "A"
         }
     },
-    "_message": "Validation failed"
+    "_message": "Validation failed",
+    "message": "Mensagem de erro."
 }
 ```
 

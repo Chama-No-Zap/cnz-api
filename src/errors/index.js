@@ -1,6 +1,11 @@
 module.exports = {
   USER_NOT_FOUND: {
-    message: 'Usuário não encontrado',
+    errors: {
+      user: {
+        name: 'Not found',
+        message: 'User not found on database',
+      }
+    },
     code: 404,
-  }
+  },
 };

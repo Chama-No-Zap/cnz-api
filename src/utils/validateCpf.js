@@ -1,5 +1,6 @@
 const validateCpf = (value) => {
-  if (!value) return false;
+  if (value === null) return true;
+  if (typeof value !== 'string') return false;
 
   // Guarda todos os dígitos em um array
   const numbers = value.toString().match(/\d/g).map(Number);
