@@ -2,11 +2,12 @@
 
 ##### SERVIÇOS DE USUÁRIO #####
 
-A API espera receber uma request do tipo POST para cadastro
+A API espera receber uma request do tipo POST para '/' para cadastro
 de novos usuários.
 
 Estrutura do POST:
 
+```
 JSON {
   data: {
     title: 'chave',
@@ -16,11 +17,14 @@ JSON {
     }
   }
 }
+```
 
 A primeira requisição dever do tipo POST com o número de telefone e nome do usuário.
 Exemplo:
 
-JSON {
+JSON
+```
+{
   data: {
     title: 'phone',
     content: {
@@ -29,11 +33,14 @@ JSON {
     }
   }
 }
+```
 
 Para salvar endereço, a requisição deve ser feita com a chave que se quer que seja salva.
 Exemplo:
 
-JSON {
+JSON
+```
+{
   data: {
     title: 'cep',
     content: {
@@ -42,6 +49,7 @@ JSON {
     }
   }
 }
+```
 
 ## Função responsável: createUser (controller)
 
@@ -50,5 +58,66 @@ Há uma validação para CPF, cep, número de telefone etc, antes de salvar
 essas informações no banco.
 
 Ao não reconhecer o número de telefone, a função lança um erro (USER_NOT_FOUND)
+
+
+### REQUISIÇÕES
+
+
+---- createUser()
+Para criação de um usuário, é necessário fazer um POST para a rota '/'.
+A API retornará seus dados já presentes no banco, com excessão do atual.
+
+Status code 201
+JSON
+```
+{
+    "address": {
+        "cep": "",
+        "number": "",
+        "complement": ""
+    },
+    "name": "",
+    "purchaseHistory": [],
+    "desatived": false,
+    "_id": "5ffd88894ac9285aadbe",
+    "phone": "111444554",
+    "__v": 0
+}
+```
+
+Se o usuário ainda não existe no banco, será necessário criá-lo a partir do primeiro contato com o número de telefone. A partir deste ponto pode-se adicionar o restante das informações.
+
+-- ERROS
+Status code 11000
+Se o usuário já existe no banco, ao tentar criá-lo será estourado o erro 11000 do mongoose.
+
+
+Se o item a ser inserido não passar nas validações de tipo/tamanho etc,
+você receberá um json no seguinte formato, com todos os erros de validação encontrados:
+
+Status code 400
+JSON
+```
+{
+    "errors": {
+        "cpf": {
+            "name": "ValidatorError",
+            "message": "Path `cpf` (`A`) is shorter than the minimum allowed length (11).",
+            "properties": {
+                "message": "Path `cpf` (`A`) is shorter than the minimum allowed length (11).",
+                "type": "minlength",
+                "minlength": 11,
+                "path": "cpf",
+                "value": "A"
+            },
+            "kind": "minlength",
+            "path": "cpf",
+            "value": "A"
+        }
+    },
+    "_message": "Validation failed"
+}
+```
+
 
 

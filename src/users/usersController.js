@@ -15,7 +15,7 @@ const createUser = async (req, res, _next) => {
     const response = await usersService.createUser(data);
     return res.status(201).json(response);
   } catch ({ code = 400, ...error}) {
-    res.status(code).json({ error });
+    res.status(code).json(error);
   }
 };
 
@@ -35,20 +35,20 @@ const createUser = async (req, res, _next) => {
 //   }
 // };
 
-// const getUserByPhone = (async (req, res, _next) => {
-//   const { phone } = req.body;
-//   try {
-//     const response = await usersService.getUserByPhone(phone);
-//     return res.status(200).json(response);
-//   } catch (err) {
-//     res.status(400).json(err);
-//   }
-// });
+const getUserByPhone = (async (req, res, _next) => {
+  const { data: { phone } } = req.body;
+  try {
+    const response = await usersService.getUserByPhone(phone);
+    return res.status(200).json(response);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
 
 usersRouter
   .route('/')
   .post(verifyParams, createUser)
-  // .get(getUserByPhone)
+  .get(getUserByPhone);
   // .put(updateUserByPhone);
 
 // usersRouter.route('/desactive').put(desativeUserByPhone);

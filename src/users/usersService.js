@@ -32,17 +32,15 @@ const createUser = async (data) => {
   const addressElements = ['cep', 'complement', 'number'];
   if (title === 'phone') {
     user = await createUserFunctions[title](content);
-    return user;
   }
 
-  if (addressElements.some((elem) => elem === title)) {
+  else if (addressElements.some((elem) => elem === title)) {
     // utilizar função de atualizar endereço caso a chave seja
     // cep, complemento ou número
     user = await createUserFunctions['address']({...content, key: title });
-    return user;
+  } else {
+    user = await createUserFunctions['default']({...content, key: title });
   }
-
-  user = await createUserFunctions['default']({...content, key: title });
   if (!user) throw USER_NOT_FOUND;
 
   return user;
@@ -54,11 +52,11 @@ const createUser = async (data) => {
 //   return user.exec();
 // };
 
-// const getUserByPhone = async (phone) => {
-//   const user = await User.findOne({ phone });
-//   if (!user) return { err: true, message: 'User not found' };
-//   return user;
-// };
+const getUserByPhone = async (phone) => {
+  const user = await User.findOne({ phone });
+  if (!user) return { err: true, message: 'User not found' };
+  return user;
+};
 
 // const updateUserByPhone = async (data) => {
 //   const { phone } = data;
@@ -72,7 +70,7 @@ const createUser = async (data) => {
 
 module.exports = {
   createUser,
+  getUserByPhone,
   // updateUserByPhone,
   // desativeUserByPhone,
-  // getUserByPhone,
 };
