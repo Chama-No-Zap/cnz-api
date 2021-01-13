@@ -16,9 +16,7 @@ mongoose.connect('mongodb://localhost/cnz', {
 
 app.use(bodyParser.json());
 
-app.use('/users', usersRouter);
-// app.use('/products', productsRouter);
-
+app.use('/', usersRouter);
 
 app.use('/sellers', sellersRouter);
 app.use(errorHandler);

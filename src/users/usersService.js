@@ -45,14 +45,21 @@ const createUser = async (data) => {
   return user;
 };
 
-// const getUserByPhone = async (phone) => {
-//   const user = await User.findOne({ phone });
-//   if (!user) return { err: true, message: 'User not found' };
+const getUserByPhone = async (data) => {
+  const { title, content: { phone } } = data;
+  const user = await User.findOne({ phone });
+  if (!user) throw USER_NOT_FOUND;
+  return user;
+};
+
+// const getUserByInfo = async (data) => {
+//   const { title, content: { phone } } = data;
+//   const user = await User.findOne({ phone, [title]: title });
+//   if (!user) throw USER_NOT_FOUND;
 //   return user;
 // };
 
-
 module.exports = {
   createUser,
-  // getUserByPhone,
+  getUserByPhone,
 };
