@@ -1,9 +1,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { requestions, validUser, requestionsWithError } = require('../../mock/index');
+const { requestions, requestionsWithError } = require('../../mock/index');
 const User = require('../../src/users/usersModel');
-const server = require('../../index');
-const { BAD_REQUEST_FORMAT } = require('../../src/errors');
 
 chai.use(chaiHttp);
 chai.should();
@@ -63,6 +61,8 @@ describe('API para cadastro e atualização de usuário', () => {
       });
     });
   });
+});
+
   // describe('', () => {
   //   it('', () => {
   //         // it ('Testar que é possível adicionar CEP à conta do usuário', (done) => {
@@ -82,4 +82,3 @@ describe('API para cadastro e atualização de usuário', () => {
   //   })
 
   // })
-});

@@ -7,7 +7,7 @@
     "test": "node node_modules/mocha/bin/mocha",
     "start": "node index.js",
     "debug": "nodemon index.js",
-    "coverage": "nyc mocha  --timeout 3000"
+    "coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "express-rescue": "^1.1.30",
+    "jest": "^26.6.3",
     "mongoose": "^5.10.6",
     "mongoose-validator": "^2.1.0",
     "nyc": "^15.1.0"
