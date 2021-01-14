@@ -2,7 +2,7 @@
 
 ##### SERVIÇOS DE USUÁRIO #####
 
-A API espera receber uma request do tipo POST para '/' para cadastro
+A API espera receber uma request do tipo POST para '/users' para cadastro
 de novos usuários.
 
 Estrutura do POST:
@@ -89,6 +89,7 @@ Se o usuário ainda não existe no banco, será necessário criá-lo a partir do
 ## ERROS
 <p>Status code 11000</p>
 Se o usuário já existe no banco, ao tentar criá-lo será estourado o erro 11000 do mongoose.
+obs: A API responderá como Bad request (400)
 
 
 Se o item a ser inserido não passar nas validações de tipo/tamanho etc,
@@ -118,5 +119,21 @@ a resposta será um json no seguinte formato, com todos os erros de validação 
 }
 ```
 
+<p>Status 404 - Bad Request</p>
+
+Se a requisição busca um usuário não cadastrado, a API retornará Not Found, no seguinte formato:
+
+```
+{
+  errors: {
+      user: {
+        name: 'Not found',
+        message: 'User not found on database',
+      }
+    },
+    code: 404,
+  }
+}
+```
 
 

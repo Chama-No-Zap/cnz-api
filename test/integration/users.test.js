@@ -1,16 +1,19 @@
+require('dotenv/config');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { requestions, requestionsWithError } = require('../../mock/index');
 const User = require('../../src/users/usersModel');
-const server = require('../../index');
-const { BAD_REQUEST_FORMAT } = require('../../src/errors');
-const mongoose = require('mongoose');
+const {
+  requestions,
+  requestionsWithError
+} = require('../../mock/index');
+const {
+  BAD_REQUEST_FORMAT
+} = require('../../src/errors');
 
 chai.use(chaiHttp);
 chai.should();
 
-const URL_BASE = 'http://localhost:3000';
-
+const URL_BASE = process.env.URL_BASE || 'http://localhost:9000';
 
 describe('API para cadastro e atualização de usuário', () => {
   describe('Parametros da request', () => {
