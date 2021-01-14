@@ -4,6 +4,7 @@ const { requestions, validUser, requestionsWithError } = require('../../mock/ind
 const User = require('../../src/users/usersModel');
 const server = require('../../index');
 const { BAD_REQUEST_FORMAT } = require('../../src/errors');
+const mongoose = require('mongoose');
 
 chai.use(chaiHttp);
 chai.should();
