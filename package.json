@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm test",
+    "test": "node node_modules/mocha/bin/mocha --exit",
     "start": "node index.js",
-    "debug": "nodemon index.js"
+    "debug": "nodemon index.js",
+    "coverage": "nyc mocha --exit"
   },
   "repository": {
     "type": "git",
@@ -22,11 +23,15 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "express-rescue": "^1.1.30",
+    "jest": "^26.6.3",
     "mongoose": "^5.10.6",
     "mongoose-validator": "^2.1.0",
-    "ngrok": "^3.4.0"
+    "nyc": "^15.1.0"
   },
   "devDependencies": {
+    "chai": "4.2.0",
+    "chai-http": "4.3.0",
+    "mocha": "6.1.4",
     "nodemon": "^2.0.4"
   }
 }

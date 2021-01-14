@@ -11,7 +11,10 @@ const createUser = async (req, res, _next) => {
   try {
     const response = await usersService.createUser(data);
     return res.status(201).json(response);
-  } catch ({ code = 400, ...error }) {
+  } catch ({ code, ...error }) {
+    if (!code || code == 11000) {
+      code = 400;
+    }
     res.status(code).json(error);
   }
 };
@@ -22,6 +25,9 @@ const getUserByPhone = (async (req, res, _next) => {
     const response = await usersService.getUserByPhone(data);
     return res.status(200).json(response);
   } catch ({ code = 400, ...error }) {
+    if (code == 11000) {
+      code = 400;
+    }
     res.status(code).json(error);
   }
 });

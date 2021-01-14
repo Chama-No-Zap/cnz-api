@@ -6,6 +6,7 @@ const sellersRouter = require('./src/sellers/sellersController');
 const errorHandler = require('./src/middlewares/errorHandler');
 
 const app = express();
+const PORT = 3000;
 
 mongoose.connect('mongodb://localhost/cnz', {
   useNewUrlParser: true,
@@ -16,9 +17,9 @@ mongoose.connect('mongodb://localhost/cnz', {
 
 app.use(bodyParser.json());
 
-app.use('/', usersRouter);
+app.use('/users', usersRouter);
 
 app.use('/sellers', sellersRouter);
 app.use(errorHandler);
 
-app.listen(3000, () => console.log('listen to port 3000'));
+app.listen(PORT, () => console.log(`Listenning on PORT ${PORT}`));
