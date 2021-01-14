@@ -6,7 +6,8 @@
   "scripts": {
     "test": "node node_modules/mocha/bin/mocha",
     "start": "node index.js",
-    "debug": "nodemon index.js"
+    "debug": "nodemon index.js",
+    "coverage": "nyc mocha  --timeout 3000"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,7 @@
     "express-rescue": "^1.1.30",
     "mongoose": "^5.10.6",
     "mongoose-validator": "^2.1.0",
-    "ngrok": "^3.4.0"
+    "nyc": "^15.1.0"
   },
   "devDependencies": {
     "chai": "4.2.0",

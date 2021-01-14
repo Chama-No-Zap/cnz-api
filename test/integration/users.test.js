@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { requestions, validUser, requestionsWithError } = require('../mock/index');
+const { requestions, validUser, requestionsWithError } = require('../../mock/index');
 const User = require('../../src/users/usersModel');
 const server = require('../../index');
 const { BAD_REQUEST_FORMAT } = require('../../src/errors');
@@ -63,22 +63,23 @@ describe('API para cadastro e atualização de usuário', () => {
       });
     });
   });
-  describe('', () => {
-    it('', () => {
-          // it ('Testar que é possível adicionar CEP à conta do usuário', (done) => {
-    //   chai.request(URL_BASE)
-    //   .post('/users')
-    //   .send(requestions.phone)
-    //   .end((err, res) => {
-    //     const { cep } = requestions;
-    //     chai.assert.isNull(err);
-    //     chai.assert.isNotEmpty(res.body);
-    //     res.should.have.status(201);
-    //     res.body.should.have.property('phone').equal(cep.data.content.phone);
-    //     // res.body.address.should.have.property('cep').equal(cep.data.content.cep);
-    //     done();
-    //   });
-    // });
-    })
-  })
+  // describe('', () => {
+  //   it('', () => {
+  //         // it ('Testar que é possível adicionar CEP à conta do usuário', (done) => {
+  //   //   chai.request(URL_BASE)
+  //   //   .post('/users')
+  //   //   .send(requestions.phone)
+  //   //   .end((err, res) => {
+  //   //     const { cep } = requestions;
+  //   //     chai.assert.isNull(err);
+  //   //     chai.assert.isNotEmpty(res.body);
+  //   //     res.should.have.status(201);
+  //   //     res.body.should.have.property('phone').equal(cep.data.content.phone);
+  //   //     // res.body.address.should.have.property('cep').equal(cep.data.content.cep);
+  //   //     done();
+  //   //   });
+  //   // });
+  //   })
+
+  // })
 });
