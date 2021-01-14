@@ -7,7 +7,7 @@ const createUserFunctions = {
   default: async ({ phone, key, ...content }) => {
     const user = await User
     .findOneAndUpdate({ phone },
-      { $set: { [key]: content[key] } }, { runValidators: true }
+      { $set: { [key]: content[key] } }, { new: true, runValidators: true, }
     );
     return user;
   },
@@ -20,7 +20,7 @@ const createUserFunctions = {
     const user = await User
       .findOneAndUpdate({ phone },
         { $set: { [`address.${key}`]: content[key] } },
-        { runValidators: true }
+        { runValidators: true, new: true }
       );
     return user;
   },
@@ -29,7 +29,7 @@ const createUserFunctions = {
 const createUser = async (data) => {
   const { title, content } = data;
   let user;
-  const addressElements = ['cep', 'complement', 'number'];
+  const addressElements = ['cep', 'complement', 'number', 'nextMessage'];
   if (title === 'phone') {
     user = await createUserFunctions[title](content);
   }
@@ -52,14 +52,15 @@ const getUserByPhone = async (data) => {
   return user;
 };
 
-// const getUserByInfo = async (data) => {
-//   const { title, content: { phone } } = data;
-//   const user = await User.findOne({ phone, [title]: title });
-//   if (!user) throw USER_NOT_FOUND;
-//   return user;
-// };
+const getUserByInfo = async (data) => {
+  const { title, content: { phone } } = data;
+  const user = await User.findOne({ phone, [title]: title });
+  if (!user) throw USER_NOT_FOUND;
+  return user;
+};
 
 module.exports = {
   createUser,
   getUserByPhone,
+  getUserByInfo,
 };

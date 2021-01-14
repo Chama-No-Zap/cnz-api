@@ -1,9 +1,9 @@
+const { BAD_REQUEST_FORMAT } = require('../errors');
+
 const verifyParams = (req, res, next) => {
-  const { data } = req.body;
+  const { data = {} } = req.body;
   if (!data.title || !data.content) {
-    return res.status(400).json({
-      message: 'A requisição deve ter o formato { data: { title, content } }'
-    });
+    return res.status(BAD_REQUEST_FORMAT.code).json(BAD_REQUEST_FORMAT);
   }
   next();
 };

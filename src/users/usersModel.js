@@ -45,6 +45,16 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  nextMessage: {
+    title: {
+      type: String,
+      default: 'location',
+    },
+    lastModified: {
+      type: Date,
+      default: new Date(),
+    }
+  }
 });
 
 module.exports = mongoose.model('Users', userSchema);

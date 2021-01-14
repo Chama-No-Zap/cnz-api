@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm test",
+    "test": "node node_modules/mocha/bin/mocha",
     "start": "node index.js",
     "debug": "nodemon index.js"
   },
@@ -27,6 +27,9 @@
     "ngrok": "^3.4.0"
   },
   "devDependencies": {
+    "chai": "4.2.0",
+    "chai-http": "4.3.0",
+    "mocha": "6.1.4",
     "nodemon": "^2.0.4"
   }
 }
