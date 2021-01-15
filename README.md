@@ -51,9 +51,24 @@ JSON
 }
 ```
 
+## FORMATO DA REQUEST (ERROR)
+Caso a requisição não seja feita no formato listado anteriormente, a API lidará como Bad request, respondendo o seguinte JSON:
+```
+{
+  errors: {
+      request: {
+        name: 'Bad request',
+        message: 'The request must be this format: { data: { title, content } }',
+      }
+    },
+    code: 400,
+  }
+}
+```
+
 ## Função responsável: createUser (controller)
 
--- A função *** createUser *** recebe os parametros acima através do body da requisição e os trata.
+-- A função *** createUser *** recebe os parametros citados anteriormente através do body da requisição e os trata.
 Há uma validação para CPF, cep, número de telefone etc, antes de salvar
 essas informações no banco.
 
