@@ -11,11 +11,13 @@ const createUser = async (req, res, _next) => {
   try {
     const response = await usersService.createUser(data);
     return res.status(201).json(response);
-  } catch ({ code, ...error }) {
-    if (!code || code == 11000) {
+  } catch (error) {
+    console.log(error);
+    let code = null;
+    if (!error.code || error.code == 11000) {
       code = 400;
     }
-    res.status(code).json(error);
+    res.status(code || error.code).json(error);
   }
 };
 
