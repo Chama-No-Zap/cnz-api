@@ -13,7 +13,7 @@ const {
 chai.use(chaiHttp);
 chai.should();
 
-const URL_BASE = process.env.URL_BASE || 'http://localhost:9000';
+const URL_BASE = process.env.CNZ_API_URL || 'http://localhost:9000';
 
 describe('API para cadastro e atualização de usuário', () => {
   describe('Parametros da request', () => {
