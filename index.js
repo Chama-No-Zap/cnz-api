@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 
 app.use('/users', usersRouter);
 
-// app.use('/sellers', sellersRouter);
+app.use('/sellers', sellersRouter);
 app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Listenning on PORT ${PORT}`));

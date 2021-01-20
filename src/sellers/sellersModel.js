@@ -6,30 +6,34 @@ const Schema = mongoose.Schema;
 const sellersSchema = new Schema({
   name: {
     type: String,
-    required: true,
+    default: ''
   },
   cnpj: {
     type: String,
+    allowNull: true,
     minlength: 14,
     maxlength: 18,
     validate: [validateCnpj, 'Invalid CNPJ'],
-    unique: true,
+    default: null,
   },
   phone: {
     type: String,
-    required: true,
+    default: '',
     unique: true,
   },
   address: {
     cep: {
       type: String,
-      required: true,
+      default: ''
     },
     number: {
       type: String,
-      required: true,
+      default: ''
     },
-    complement: String,
+    complement: {
+      type: String,
+      default: ''
+    }
   },
   ordersHistory: {
     type: Array,
@@ -37,7 +41,7 @@ const sellersSchema = new Schema({
   products: [{
     name: {
       type: String,
-      required: true,
+      default: ''
     },
     informations: {
       brand: { type: String, default: 'onwer' },
